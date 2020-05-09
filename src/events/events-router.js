@@ -2,6 +2,7 @@ const express = require("express");
 const xss = require("xss");
 
 const EventsService = require("./events-service");
+const { requireAuth } = require('../middleware/jwt-auth')
 const eventsRouter = express.Router();
 const jsonParser = express.json();
 
@@ -27,7 +28,7 @@ eventsRouter
       })
       .catch(next);
   })
-  .post(jsonParser, (req, res, next) => {
+  .post(requireAuth, jsonParser, (req, res, next) => {
     const knexInstance = req.app.get("db");
     const {
       parent_name,
@@ -69,6 +70,7 @@ eventsRouter
 //get, update, or delete specific event
 eventsRouter
   .route("/:id")
+  .all(requireAuth)
   .all((req, res, next) => {
     const knexInstance = req.app.get("db");
     const eventId = req.params.id;
@@ -91,19 +93,18 @@ eventsRouter
   .delete((req, res, next) => {
     const knexInstance = req.app.get("db");
     const deleteEventId = req.params.id;
-    console.log(deleteEventId)
+    
     EventsService.deleteEvent(knexInstance, deleteEventId)
       .then(() => res.status(204).end())
       .catch(next);
   })
 
   .patch(jsonParser, (req, res, next) => {
-      // res.json('Patch')
     const knexInstance = req.app.get('db');
     const updateEventId = req.params.id;
     const {  parent_name, title, description, address, type, time_of_event } = req.body;
     const updatedEvent = {  parent_name, title, description, address, type, time_of_event };
- console.log(updatedEvent)
+
     //check that at least one field is getting updated in order to patch
     const numberOfValues = Object.values(updatedEvent).filter(Boolean).length
     if(numberOfValues === 0){

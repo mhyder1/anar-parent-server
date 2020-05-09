@@ -1,0 +1,4 @@
+TRUNCATE
+  users,
+  events,
+  schemaversion;
