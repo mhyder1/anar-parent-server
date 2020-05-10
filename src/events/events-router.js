@@ -14,7 +14,8 @@ const serializeEvent = (event) => ({
   description: xss(event.description),
   address: event.address,
   type:event.type,
-  time_of_event: event.time_of_event
+  time_of_event: event.time_of_event,
+  author: event.author
 });
 
 //get all events and add new event
@@ -37,6 +38,7 @@ eventsRouter
       address,
       type,
       time_of_event,
+      author
     } = req.body;
     const newEvent = {
       parent_name,
@@ -44,9 +46,10 @@ eventsRouter
       description,
       address,
       type,
-      time_of_event
+      time_of_event,
+      author
     };
-    console.log(newEvent);
+    // console.log(newEvent);
     //each value in new event is required, verify that they were sent
     for (const [key, value] of Object.entries(newEvent)) {
       if (value == null) {
@@ -102,21 +105,23 @@ eventsRouter
   .patch(jsonParser, (req, res, next) => {
     const knexInstance = req.app.get('db');
     const updateEventId = req.params.id;
-    const {  parent_name, title, description, address, type, time_of_event } = req.body;
-    const updatedEvent = {  parent_name, title, description, address, type, time_of_event };
-    console.log(updatedEvent)
+    const { title, description, address, type, time_of_event } = req.body;
+    const updatedEvent = { title, description, address, type, time_of_event };
+    // console.log(updatedEvent)
     //check that at least one field is getting updated in order to patch
     const numberOfValues = Object.values(updatedEvent).filter(Boolean).length
     if(numberOfValues === 0){
         return res.status(400).json({
-            error: { message: `Request body must contain either parent_name, title, description, address, time_of_event'`}
+            error: { message: `Request body must contain either  title, description, address, time_of_event'`}
         });
     }
 
-    updatedEvent.time_of_event = new Date();
-console.log(updateEventId, updatedEvent)
+    // updatedEvent.time_of_event = new Date();
+    // console.log(updateEventId, updatedEvent)
     EventsService.updateEvent(knexInstance, updateEventId, updatedEvent)
-     .then(() => res.status(204).end())
+     .then((event) => {
+      return res.json(event);
+     })
      .catch(next);
   });
 

@@ -24,10 +24,11 @@ const EventsService = {
          .delete();
     },
     updateEvent(knex, eventId, updatedEvent){
-        console.log(eventId,updatedEvent)
         return knex('events')
          .where('id', eventId)
-         .update(updatedEvent);
+         .update(updatedEvent)
+         .returning('*')
+         .then(rows => { return rows[0] });
     }
   };
   

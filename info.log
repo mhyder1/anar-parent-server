@@ -34,3 +34,9 @@
 {"message":"select * from \"blogful_users\" where \"user_name\" = $1 limit $2 - relation \"blogful_users\" does not exist","level":"error"}
 {"message":"select * from \"blogful_users\" where \"user_name\" = $1 limit $2 - relation \"blogful_users\" does not exist","level":"error"}
 {"message":"secretOrPrivateKey must have a value","level":"error"}
+{"message":"insert into \"events\" (\"address\", \"author\", \"description\", \"parent_name\", \"time_of_event\", \"title\", \"type\") values ($1, $2, $3, $4, $5, $6, $7) returning * - invalid input syntax for integer: \"\"","level":"error"}
+{"message":"select * from \"events\" where \"id\" = $1 limit $2 - invalid input syntax for integer: \"null\"","level":"error"}
+{"message":"select * from \"events\" where \"id\" = $1 limit $2 - invalid input syntax for integer: \"null\"","level":"error"}
+{"message":"events is not defined","level":"error"}
+{"message":"event.map is not a function","level":"error"}
+{"message":"The \"chunk\" argument must be of type string or an instance of Buffer. Received an instance of Object","level":"error"}
