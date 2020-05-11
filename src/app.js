@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config')
 const errorHandler = require('./error-handler')
 const eventsRouter = require('./events/events-router')
 const usersRouter = require('./users/users-router')
+const attendRouter = require('./attend/attend-router')
 const authRouter = require('./auth/auth-router')
 
 
@@ -20,6 +21,7 @@ app.use(helmet());
 app.use('/api/events', eventsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter)
+app.use('/api/attend', attendRouter)
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");

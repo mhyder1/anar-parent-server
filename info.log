@@ -40,3 +40,4 @@
 {"message":"events is not defined","level":"error"}
 {"message":"event.map is not a function","level":"error"}
 {"message":"The \"chunk\" argument must be of type string or an instance of Buffer. Received an instance of Object","level":"error"}
+{"message":"AttendService.getEventById is not a function","level":"error"}
