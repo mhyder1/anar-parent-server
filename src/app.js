@@ -23,9 +23,9 @@ app.get("/test",(req, res) => {
   res.json({Hello: 'World'})
 })
 
-// app.use('/api/events', eventsRouter);
-// app.use('/api/users', usersRouter);
-// app.use('/api/auth', authRouter)
-// app.use('/api/attend', attendRouter)
+app.use('/api/events', eventsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter)
+app.use('/api/attend', attendRouter)
 
 module.exports = app;
