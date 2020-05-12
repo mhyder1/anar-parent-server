@@ -17,18 +17,15 @@ const morganOption = (NODE_ENV === 'production') ? "tiny" : "common";
 app.use(morgan(morganOption));
 app.use(cors());
 app.use(helmet());
-
-app.use('/api/events', eventsRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/auth', authRouter)
-app.use('/api/attend', attendRouter)
-
-app.get("/", (req, res) => {
-  res.send("Hello, Heroku!");
-});
-
-
-
 app.use(errorHandler)
+
+app.get("/test",(req, res) => {
+  res.json({Hello: 'World'})
+})
+
+// app.use('/api/events', eventsRouter);
+// app.use('/api/users', usersRouter);
+// app.use('/api/auth', authRouter)
+// app.use('/api/attend', attendRouter)
 
 module.exports = app;
