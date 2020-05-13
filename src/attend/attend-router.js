@@ -68,36 +68,36 @@ attendRouter
   });
 
 //get, update, or delete specific event
-// attendRouter
-//   .route("/:id")
-//   // .all(requireAuth)
-//   .all((req, res, next) => {
-//     const knexInstance = req.app.get("db");
-//     const attendId = req.params.id;
+attendRouter
+  .route("/:id")
+  // .all(requireAuth)
+  .all((req, res, next) => {
+    const knexInstance = req.app.get("db");
+    const attendId = req.params.id;
 
-//     AttendService.getAttendById(knexInstance, attendId)
-//       .then((attend) => {
-//         if (!attend) {
-//           return res.status(404).json({
-//             error: { message: `Event doesn't exist` },
-//           });
-//         }
-//         res.attend = attend
-//         next();
-//       })
-//       .catch(next);
-//   })
-//   .get((req, res, next) => {
-//     res.json(res.attend);
-//   })
-//   .delete((req, res, next) => {
-//     const knexInstance = req.app.get("db");
-//     const deleteEventId = req.params.id;
+    AttendService.getAttendById(knexInstance, attendId)
+      .then((attend) => {
+        if (!attend) {
+          return res.status(404).json({
+            error: { message: `Event doesn't exist` },
+          });
+        }
+        res.attend = attend
+        next();
+      })
+      .catch(next);
+  })
+  .get((req, res, next) => {
+    res.json(res.attend);
+  })
+  .delete((req, res, next) => {
+    const knexInstance = req.app.get("db");
+    const deleteAttendId = req.params.id;
     
-//     AttendService.deleteEvent(knexInstance, deleteEventId)
-//       .then(() => res.status(204).end())
-//       .catch(next);
-//   })
+    AttendService.deleteEvent(knexInstance, deleteAttendId)
+      .then(() => res.status(204).end())
+      .catch(next);
+  })
 
 //   .patch(jsonParser, (req, res, next) => {
 //     const knexInstance = req.app.get('db');
